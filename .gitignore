@@ -1,0 +1,7 @@
+.vs
+*.o
+*.gb
+*.VC.opendb
+*.sdf
+Debug
+Release
