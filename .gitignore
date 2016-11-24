@@ -2,6 +2,7 @@
 *.o
 *.gb
 *.VC.opendb
+*.VC.db
 *.sdf
 Debug
 Release
