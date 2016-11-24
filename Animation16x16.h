@@ -14,6 +14,8 @@
 typedef struct
 {
   UINT8 sprite_number;
+  UINT8 tile_offset;
+
   UINT8 frame_count;
   UINT8 frame;
 
@@ -23,7 +25,7 @@ typedef struct
 } Animation16x16;
 
 /*
- * Animation16x16::init 
+ * Animation16x16::init
  *
  * Expects sprites already loaded.
  * All sprites for the entire animation must be contiguous, 
@@ -31,17 +33,18 @@ typedef struct
  * 
  * Params: 
  *  anim: the thing you want to set up
- *  sprite_id: The first sprite of the two that
+ *  sprite_id: The first sprite of the two that make this image
+ *  tile_id: The position of the first tile
  *  num_animation_frames: The total number of images in the animation.
  *  rate: Number of vblanks in a single animation frame. Smaller numbers are faster.
  */
-void init(Animation16x16* anim, UINT8 sprite_id, UINT8 num_animation_frames, UINT8 rate);
+void init_Animation16x16(Animation16x16* anim, UINT8 sprite_id, UINT8 tile_id, UINT8 num_animation_frames, UINT8 rate);
 
 /*
- * Animation16x16::on_vblank
+ * Animation16x16::step
  *
- * Call this on every vblank frame to advance the animation at the correct rate.
+ * Call this on every frame to advance the animation at the correct rate.
  */
-void on_vblank(Animation16x16* anim);
+void step_Animation16x16(Animation16x16* anim);
 
 #endif 
