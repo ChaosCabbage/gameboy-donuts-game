@@ -12,28 +12,29 @@ void init_Animation16x16(
   UINT8 rate
 )
 {
-  anim->sprite_number = sprite_id;
-  anim->tile_offset = tile_id;
-  anim->frame_count = num_animation_frames;
-  anim->frame = 0;
+  anim->info.sprite_number = sprite_id;
+  anim->info.tile_offset = tile_id;
+  anim->info.frame_count = num_animation_frames;
+  anim->info.vblanks_per_frame = rate;
 
-  anim->vblanks_per_frame = rate;
+  anim->frame = 0;
   anim->vblanks = 0;
 
+  /*
   draw_frame(anim);
+  */
 }
 
 void step_Animation16x16(Animation16x16* anim)
 {
   ++anim->vblanks;
-  if (anim->vblanks == anim->vblanks_per_frame) {
+  if (anim->vblanks == anim->info.vblanks_per_frame) {
     advance_frame(anim);
     draw_frame(anim);
     anim->vblanks = 0;
   }
 
 }
-
 
 /*
 * Animation16x16::advance_frame
@@ -42,7 +43,7 @@ void step_Animation16x16(Animation16x16* anim)
 void advance_frame(Animation16x16* anim)
 {
   ++anim->frame;
-  if (anim->frame == anim->frame_count) {
+  if (anim->frame == anim->info.frame_count) {
     anim->frame = 0;
   }
 }
@@ -54,9 +55,9 @@ void advance_frame(Animation16x16* anim)
  */
 void draw_frame(const Animation16x16* anim)
 {
-  UINT8 tile = (4 * anim->frame) + anim->tile_offset;
-  set_sprite_tile(anim->sprite_number, tile);
-  set_sprite_tile(anim->sprite_number + 1, tile + 2);
+  UINT8 tile = (4 * anim->frame) + anim->info.tile_offset;
+  set_sprite_tile(anim->info.sprite_number, tile);
+  set_sprite_tile(anim->info.sprite_number + 1, tile + 2);
 
 }
 

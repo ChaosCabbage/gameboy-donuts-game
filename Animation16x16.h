@@ -11,15 +11,26 @@
 
 #include <asm/gbz80/types.h>
 
+/*
+ * This is the constant information about the animation.
+ */
 typedef struct
 {
   UINT8 sprite_number;
   UINT8 tile_offset;
-
   UINT8 frame_count;
-  UINT8 frame;
-
   UINT8 vblanks_per_frame;
+
+} Animation16x16Info;
+
+/*
+ * This is an animation in progress.
+ */
+typedef struct
+{
+  Animation16x16Info info;
+
+  UINT8 frame;
   UINT8 vblanks;
 
 } Animation16x16;

@@ -88,6 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation16x16.c" />
+    <ClCompile Include="Entity.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="res\donut_sprite.c" />
     <ClCompile Include="res\james_sprite.c" />
@@ -99,6 +100,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation16x16.h" />
+    <ClInclude Include="Entity.h" />
     <ClInclude Include="res\donut_sprite.h" />
     <ClInclude Include="res\james_sprite.h" />
     <ClInclude Include="res\robot_sprite.h" />

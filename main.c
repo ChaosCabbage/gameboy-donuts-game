@@ -1,24 +1,15 @@
 #include <gb/gb.h>
+#include "Entity.h"
 #include "Animation16x16.h"
 #include "Sprite16x16.h"
 #include "res/james_sprite.h"
 #include "res/donut_sprite.h"
 #include "res/robot_sprite.h"
 
-
-typedef struct 
-{
-  UINT8 x;
-  UINT8 y;
-  BOOLEAN alive;
-
-} donut;
-
-
 /* global game state */
 const UINT8 JAMES_X = 75;
 UINT8 g_robot_x = 0;
-donut g_donut;
+Entity g_donut;
 
 /* global animation data */
 UINT8 JAMES_SPR_ID;
@@ -40,7 +31,7 @@ UINT8 g_frame_counter = 0;
 
 void eat_the_donut()
 {
-  g_donut.x = 200;
+  teleport_Entity(&g_donut, 200, g_donut.y);
 }
 
 void redraw()
@@ -49,8 +40,6 @@ void redraw()
   step_Animation16x16(&g_robot_anim[0]);
   step_Animation16x16(&g_robot_anim[1]);
   step_Animation16x16(&g_robot_anim[2]);
-
-  move_Sprite16x16(DONUT_SPR_ID, g_donut.x, g_donut.y);
   
   move_Sprite16x16(ROBOT_SPR_ID, g_robot_x, 20);
   move_Sprite16x16(ROBOT_SPR_ID+2, g_robot_x, 40);
@@ -59,6 +48,10 @@ void redraw()
 
 void update() 
 {
+  /*
+  step_Entity(&g_donut);
+  */
+
   ++g_frame_counter;
   if (g_frame_counter == 3) {
     g_robot_x -= 1;
@@ -69,10 +62,11 @@ void update()
     g_frame_counter = 0;
   }
 
-  g_donut.x -= 1;
+  /*
   if (g_donut.x < JAMES_X) {
     eat_the_donut();
   }
+  */
 }
 
 
@@ -90,12 +84,12 @@ void main()
 {
   UINT8 tile_count = 0;
   UINT8 sprite_count = 0;
+  Animation16x16Info donut_anim;
 
   g_robot_x = MAXWNDPOSX;
 
   g_donut.x = 150;
   g_donut.y = 80;
-  g_donut.alive = TRUE;
 
   SPRITES_8x16;
   JAMES_TILE_OFFSET = load_tiles_Sprite16x16(&tile_count, 2, jamesSprite);
@@ -110,6 +104,18 @@ void main()
   create_Sprite16x16(&sprite_count, ROBOT_TILE_OFFSET, g_robot_x, 40);
   create_Sprite16x16(&sprite_count, ROBOT_TILE_OFFSET, g_robot_x, 140);
   SHOW_SPRITES;
+
+  /* set up the donut */
+
+  donut_anim.sprite_number = DONUT_SPR_ID;
+  donut_anim.frame_count = 1;
+  donut_anim.tile_offset = DONUT_TILE_OFFSET;
+  donut_anim.vblanks_per_frame = 255;
+  init_Entity(&g_donut, &donut_anim, g_donut.x, g_donut.y);
+  /*
+  
+  set_speed_Entity(&g_donut, -1, 0);
+  */
 
   init_Animation16x16(&g_james_anim, JAMES_SPR_ID, JAMES_TILE_OFFSET, 2, 20);
   init_Animation16x16(&g_robot_anim[0], ROBOT_SPR_ID, ROBOT_TILE_OFFSET, 8, 3);
