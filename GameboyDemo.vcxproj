@@ -82,16 +82,20 @@
     <Text Include="readme.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Animation16x16.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="res\donut_sprite.c" />
     <ClCompile Include="res\james_sprite.c" />
+    <ClCompile Include="res\robot_sprite.c" />
   </ItemGroup>
   <ItemGroup>
     <None Include="build.bat" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Animation16x16.h" />
     <ClInclude Include="res\donut_sprite.h" />
     <ClInclude Include="res\james_sprite.h" />
+    <ClInclude Include="res\robot_sprite.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
