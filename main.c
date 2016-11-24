@@ -102,8 +102,8 @@ void update()
 void loop()
 {
   while (1) {
-    redraw();
     update();
+    redraw();
     wait_vbl_done();
   }
 }
