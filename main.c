@@ -99,10 +99,13 @@ void update()
 }
 
 
-void vblankHandler()
+void loop()
 {
-  redraw();
-  update();
+  while (1) {
+    redraw();
+    update();
+    wait_vbl_done();
+  }
 }
 
 
@@ -125,5 +128,5 @@ void main()
   init(&james_anim, 0, 2, 20);
   init(&robot_anim, ROBOT_SPR_ID, 8, 3);
 
-  add_VBL(vblankHandler);
+  loop();
 }
