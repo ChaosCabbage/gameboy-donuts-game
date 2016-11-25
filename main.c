@@ -113,7 +113,7 @@ void main()
 
   set_speed_Entity(&g_robot[0], -3, 0);
   set_speed_Entity(&g_robot[1], -6, 0);
-  set_speed_Entity(&g_robot[2], -2, 0);
+  set_speed_Entity(&g_robot[2], -2, 7);
 
   init_Animation16x16(&g_james_anim, JAMES_SPR_ID, JAMES_TILE_OFFSET, 2, 20);
 

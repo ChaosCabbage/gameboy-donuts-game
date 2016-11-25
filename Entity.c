@@ -4,10 +4,26 @@
 
 #include <types.h>
 
-#define MAX(x,y) ((x) > (y) ? (x) : (y))
-#define ABS(x) ((x) > 0 ? (x) : (-(x)))
+#define MAX(x,y)        ((x) > (y) ? (x) : (y))
+#define ABS(x)          ((x) > 0 ? (x) : (-(x)))
 #define NONZERO_SIGN(x) (((x) > 0) ? 1 : -1)
 #define SIGN(x)         (((x) == 0) ? 0 : NONZERO_SIGN(x))
+
+
+static UINT8 gcd(UINT8 a, UINT8 b) {
+  UINT8 r;
+  while (b != 0) {
+    r = a % b;
+    a = b;
+    b = r;
+  }
+  return a;
+}
+
+static UINT8 lcm(UINT8 a, UINT8 b) {
+  return (a*b) / gcd(a,b);
+}
+
 
 
 static void incr_step(Entity* e);
@@ -22,8 +38,7 @@ void init_Entity(Entity* entity, const Animation16x16Info* animation, UINT8 x, U
   entity->x = x;
   entity->y = y;
 
-  entity->inverse_dx = 0;
-  entity->inverse_dy = 0;
+  set_speed_Entity(entity, 0, 0);
 
   entity->step_counter = 0;
 
@@ -46,6 +61,12 @@ void set_speed_Entity(Entity* e, int inverse_x, int inverse_y)
 {
   e->inverse_dx = inverse_x;
   e->inverse_dy = inverse_y;
+  e->step_lcm = lcm(ABS(inverse_x), ABS(inverse_y));
+
+  if (e->step_lcm == 0) {
+    /* No point doing all the movement stuff on every frame */
+    e->step_lcm = 255;
+  }
 }
 
 void step_Entity(Entity* e)
@@ -65,7 +86,11 @@ void step_Entity(Entity* e)
 void incr_step(Entity* e) 
 {
   ++e->step_counter;
-  if (e->step_counter == MAX(ABS(e->inverse_dx), ABS(e->inverse_dy))) {
+
+  /* To ensure that the movement doesn't skip a frame,
+   * the step counter is reset on the greatest common divisior of movement frames.
+   */
+  if (e->step_counter == e->step_lcm) {
     e->step_counter = 0;
   }
 }
