@@ -1,30 +1,9 @@
 #include "Entity.h"
 #include "Sprite16x16.h"
 #include "Animation16x16.h"
+#include "Maths.h"
 
 #include <types.h>
-
-#define MAX(x,y)        ((x) > (y) ? (x) : (y))
-#define ABS(x)          ((x) > 0 ? (x) : (-(x)))
-#define NONZERO_SIGN(x) (((x) > 0) ? 1 : -1)
-#define SIGN(x)         (((x) == 0) ? 0 : NONZERO_SIGN(x))
-
-
-static UINT8 gcd(UINT8 a, UINT8 b) {
-  UINT8 r;
-  while (b != 0) {
-    r = a % b;
-    a = b;
-    b = r;
-  }
-  return a;
-}
-
-static UINT8 lcm(UINT8 a, UINT8 b) {
-  return (a*b) / gcd(a,b);
-}
-
-
 
 static void incr_step(Entity* e);
 
@@ -51,6 +30,14 @@ void teleport_Entity(Entity* e, UINT8 x, UINT8 y)
 {
   e->x = x;
   e->y = y;
+  move_sprite(e);
+}
+
+void scroll_Entity(Entity * e, UINT8 dx, UINT8 dy)
+{
+  e->x += dx;
+  e->y += dy;
+  move_sprite(e);
 }
 
 void set_speed_Entity(Entity* e, int inverse_x, int inverse_y)

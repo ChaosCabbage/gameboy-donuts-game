@@ -45,6 +45,8 @@ void init_Entity(Entity* e, const Animation16x16Info* animation, SpriteTable* sp
 
 void teleport_Entity(Entity* e, UINT8 x, UINT8 y);
 
+void scroll_Entity(Entity* e, UINT8 dx, UINT8 dy);
+
 void set_speed_Entity(Entity* e, int inverse_x, int inverse_y);
 
 void step_Entity(Entity* e);
