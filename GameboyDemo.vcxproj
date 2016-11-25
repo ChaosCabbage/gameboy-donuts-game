@@ -63,12 +63,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <NMakeBuildCommandLine>build.bat</NMakeBuildCommandLine>
+    <NMakeBuildCommandLine>set GBDK_DIR=E:\Documents\GitHub\GameboyDemo\gbdk-n&amp; build.bat</NMakeBuildCommandLine>
     <NMakeCleanCommandLine>
     </NMakeCleanCommandLine>
-    <NMakeReBuildCommandLine>build.bat</NMakeReBuildCommandLine>
+    <NMakeReBuildCommandLine>build.bat clean</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
-    <NMakeIncludeSearchPath>C:\gbdk\include;$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
+    <NMakeIncludeSearchPath>E:\Documents\GitHub\GameboyDemo\gbdk-n\include;$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <NMakeBuildCommandLine>make</NMakeBuildCommandLine>

@@ -48,9 +48,7 @@ void redraw()
 
 void update() 
 {
-  /*
   step_Entity(&g_donut);
-  */
 
   ++g_frame_counter;
   if (g_frame_counter == 3) {
@@ -62,11 +60,9 @@ void update()
     g_frame_counter = 0;
   }
 
-  /*
   if (g_donut.x < JAMES_X) {
     eat_the_donut();
   }
-  */
 }
 
 
@@ -112,10 +108,8 @@ void main()
   donut_anim.tile_offset = DONUT_TILE_OFFSET;
   donut_anim.vblanks_per_frame = 255;
   init_Entity(&g_donut, &donut_anim, g_donut.x, g_donut.y);
-  /*
   
   set_speed_Entity(&g_donut, -1, 0);
-  */
 
   init_Animation16x16(&g_james_anim, JAMES_SPR_ID, JAMES_TILE_OFFSET, 2, 20);
   init_Animation16x16(&g_robot_anim[0], ROBOT_SPR_ID, ROBOT_TILE_OFFSET, 8, 3);

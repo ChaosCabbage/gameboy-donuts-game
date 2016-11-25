@@ -22,8 +22,8 @@ typedef struct
    * (inverse_dx ==  0) is a special case: The entity is not moving.
    *
    */
-  INT8 inverse_dx;
-  INT8 inverse_dy;
+  int inverse_dx;
+  int inverse_dy;
 
   Animation16x16 animation;
 
@@ -41,7 +41,7 @@ void init_Entity(Entity* e, const Animation16x16Info* animation, UINT8 x, UINT8 
 
 void teleport_Entity(Entity* e, UINT8 x, UINT8 y);
 
-void set_speed_Entity(Entity* e, INT8 inverse_x, INT8 inverse_y);
+void set_speed_Entity(Entity* e, int inverse_x, int inverse_y);
 
 void step_Entity(Entity* e);
 

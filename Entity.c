@@ -26,17 +26,13 @@ void init_Entity(Entity* entity, const Animation16x16Info* animation, UINT8 x, U
 
   entity->step_counter = 0;
 
-  /*
   init_Animation16x16(&entity->animation, 
                       animation->sprite_number, 
                       animation->tile_offset, 
                       animation->frame_count, 
                       animation->vblanks_per_frame);
-                      */
-
-  /*
+    
   move_sprite(entity);
-  */
 }
 
 void teleport_Entity(Entity* e, UINT8 x, UINT8 y)
@@ -45,7 +41,7 @@ void teleport_Entity(Entity* e, UINT8 x, UINT8 y)
   e->y = y;
 }
 
-void set_speed_Entity(Entity* e, INT8 inverse_x, INT8 inverse_y)
+void set_speed_Entity(Entity* e, int inverse_x, int inverse_y)
 {
   e->inverse_dx = inverse_x;
   e->inverse_dy = inverse_y;
@@ -53,7 +49,6 @@ void set_speed_Entity(Entity* e, INT8 inverse_x, INT8 inverse_y)
 
 void step_Entity(Entity* e)
 {
-  /*
   BOOLEAN moved = FALSE;
 
   incr_step(e);
@@ -63,8 +58,6 @@ void step_Entity(Entity* e)
   if (moved) {
     move_sprite(e);
   }
-  
-  */
 }
 
 void incr_step(Entity* e) 
@@ -75,15 +68,20 @@ void incr_step(Entity* e)
   }
 }
 
+BOOLEAN is_movement_frame(UINT8 counter, int frames_per_step)
+{
+  return (counter % frames_per_step) == 0;
+}
+
 BOOLEAN update_position(Entity * e)
 {
   BOOLEAN moved = FALSE;
 
-  if (e->step_counter == ABS(e->inverse_dx)) {
+  if (is_movement_frame(e->step_counter, ABS(e->inverse_dx))) {
     e->x += SIGN(e->inverse_dx);
     moved = TRUE;
   }
-  if (e->step_counter == ABS(e->inverse_dy)) {
+  if (is_movement_frame(e->step_counter, ABS(e->inverse_dy))) {
     e->y += SIGN(e->inverse_dy);
     moved = TRUE;
   }

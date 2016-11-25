@@ -1,8 +1,32 @@
-CALL C:/gbdk/bin/lcc -c -o james_sprite.o res/james_sprite.c
-CALL C:/gbdk/bin/lcc -c -o donut_sprite.o res/donut_sprite.c
-CALL C:/gbdk/bin/lcc -c -o robot_sprite.o res/robot_sprite.c
-CALL C:/gbdk/bin/lcc -c -o Animation16x16.o Animation16x16.c
-CALL C:/gbdk/bin/lcc -c -o Sprite16x16.o Sprite16x16.c
-CALL C:/gbdk/bin/lcc -c -o Entity.o Entity.c
-CALL C:/gbdk/bin/lcc -o demo.gb Entity.o Sprite16x16.o Animation16x16.o robot_sprite.o donut_sprite.o james_sprite.o main.c
+echo on
+set TOOLS=tools
+set OBJ=obj
 
+if "%1"=="clean" (
+	if exist %OBJ% rd /s/q %OBJ%
+	if exist demo.gb del demo.gb
+	goto end
+)
+
+if not exist %OBJ% mkdir %OBJ%
+
+call %TOOLS%\gbdk-n-compile.bat res\donut_sprite.c -o %OBJ%\donut_sprite.rel
+call %TOOLS%\gbdk-n-compile.bat res\james_sprite.c -o %OBJ%\james_sprite.rel
+call %TOOLS%\gbdk-n-compile.bat res\robot_sprite.c -o %OBJ%\robot_sprite.rel
+call %TOOLS%\gbdk-n-compile.bat Animation16x16.c -o %OBJ%\Animation16x16.rel
+call %TOOLS%\gbdk-n-compile.bat Sprite16x16.c -o %OBJ%\Sprite16x16.rel
+call %TOOLS%\gbdk-n-compile.bat Entity.c -o %OBJ%\Entity.rel
+call %TOOLS%\gbdk-n-compile.bat main.c -o %OBJ%\main.rel
+
+call %TOOLS%\gbdk-n-link.bat %OBJ%\donut_sprite.rel ^
+                             %OBJ%\james_sprite.rel ^
+                             %OBJ%\robot_sprite.rel ^
+                             %OBJ%\Animation16x16.rel ^
+                             %OBJ%\Sprite16x16.rel ^
+                             %OBJ%\Entity.rel ^
+                             %OBJ%\main.rel ^
+                              -o %OBJ%\demo.ihx
+
+call %TOOLS%\gbdk-n-make-rom.bat %OBJ%\demo.ihx demo.gb
+
+:end

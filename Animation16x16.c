@@ -20,9 +20,7 @@ void init_Animation16x16(
   anim->frame = 0;
   anim->vblanks = 0;
 
-  /*
   draw_frame(anim);
-  */
 }
 
 void step_Animation16x16(Animation16x16* anim)

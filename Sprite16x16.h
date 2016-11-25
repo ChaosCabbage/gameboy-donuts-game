@@ -27,7 +27,7 @@
 UINT8 load_tiles_Sprite16x16(
   UINT8* tile_count,
   UINT8 num_animation_frames,
-  const unsigned char* source
+  unsigned char* source
 );
 
 /*
