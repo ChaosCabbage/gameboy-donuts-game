@@ -4,6 +4,7 @@
 
 #include <types.h>
 
+#define MAX(x,y) ((x) > (y) ? (x) : (y))
 #define ABS(x) ((x) > 0 ? (x) : (-(x)))
 #define NONZERO_SIGN(x) (((x) > 0) ? 1 : -1)
 #define SIGN(x)         (((x) == 0) ? 0 : NONZERO_SIGN(x))
@@ -53,17 +54,18 @@ void step_Entity(Entity* e)
 
   incr_step(e);
   moved = update_position(e);
-  step_Animation16x16(&e->animation);
-
   if (moved) {
     move_sprite(e);
   }
+
+  step_Animation16x16(&e->animation);
+
 }
 
 void incr_step(Entity* e) 
 {
   ++e->step_counter;
-  if (e->step_counter == 128) {
+  if (e->step_counter == MAX(ABS(e->inverse_dx), ABS(e->inverse_dy))) {
     e->step_counter = 0;
   }
 }

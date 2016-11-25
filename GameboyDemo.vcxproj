@@ -96,6 +96,7 @@
     <ClCompile Include="Sprite16x16.c" />
   </ItemGroup>
   <ItemGroup>
+    <None Include=".gitignore" />
     <None Include="build.bat" />
   </ItemGroup>
   <ItemGroup>
