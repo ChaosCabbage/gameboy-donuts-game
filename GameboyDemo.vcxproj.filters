@@ -39,11 +39,15 @@
     <ClCompile Include="Sprite16x16.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Entity.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="build.bat">
       <Filter>Source Files</Filter>
     </None>
+    <None Include=".gitignore" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="res\james_sprite.h">
@@ -59,6 +63,9 @@
       <Filter>Resource Files\Sprites</Filter>
     </ClInclude>
     <ClInclude Include="Sprite16x16.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

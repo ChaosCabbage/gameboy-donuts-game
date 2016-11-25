@@ -2,10 +2,16 @@
 #include <gb/gb.h>
 
 
+void init_SpriteTable(SpriteTable* table)
+{
+  table->counter = 0;
+}
+
+
 UINT8 load_tiles_Sprite16x16(
   UINT8* tile_count,
   UINT8 num_animation_frames,
-  const unsigned char* source
+  unsigned char* source
 )
 {
   UINT8 next_tile = *tile_count;
@@ -20,12 +26,12 @@ UINT8 load_tiles_Sprite16x16(
 
 
 UINT8 create_Sprite16x16(
-  UINT8* sprite_count,
+  SpriteTable* sprite_table,
   UINT8 tile_location,
   UINT8 x, UINT8 y
 )
 {
-  UINT8 next_sprite = *sprite_count;
+  UINT8 next_sprite = sprite_table->counter;
 
   /* point the two sprites to their data slots */
   set_sprite_tile(next_sprite, tile_location);
@@ -35,7 +41,7 @@ UINT8 create_Sprite16x16(
   move_sprite(next_sprite, x, y);
   move_sprite(next_sprite + 1, x + 8, y);
 
-  *sprite_count += 2;
+  sprite_table->counter += 2;
 
   return next_sprite;
 }

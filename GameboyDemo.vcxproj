@@ -63,12 +63,14 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <NMakeBuildCommandLine>build.bat</NMakeBuildCommandLine>
+    <NMakeBuildCommandLine>set GBDK_DIR=E:\Documents\GitHub\GameboyDemo\gbdk-n&amp; build.bat</NMakeBuildCommandLine>
     <NMakeCleanCommandLine>
     </NMakeCleanCommandLine>
-    <NMakeReBuildCommandLine>build.bat</NMakeReBuildCommandLine>
+    <NMakeReBuildCommandLine>build.bat clean</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
-    <NMakeIncludeSearchPath>C:\gbdk\include;$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
+    <NMakeIncludeSearchPath>E:\Documents\GitHub\GameboyDemo\gbdk-n\include;</NMakeIncludeSearchPath>
+    <IncludePath />
+    <ReferencePath />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <NMakeBuildCommandLine>make</NMakeBuildCommandLine>
@@ -88,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation16x16.c" />
+    <ClCompile Include="Entity.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="res\donut_sprite.c" />
     <ClCompile Include="res\james_sprite.c" />
@@ -95,10 +98,12 @@
     <ClCompile Include="Sprite16x16.c" />
   </ItemGroup>
   <ItemGroup>
+    <None Include=".gitignore" />
     <None Include="build.bat" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation16x16.h" />
+    <ClInclude Include="Entity.h" />
     <ClInclude Include="res\donut_sprite.h" />
     <ClInclude Include="res\james_sprite.h" />
     <ClInclude Include="res\robot_sprite.h" />

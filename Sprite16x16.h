@@ -12,6 +12,19 @@
 #include <asm/gbz80/types.h>
 
 /*
+ * This struct keeps track of the number of sprites already created.
+ */
+typedef struct {
+  UINT8 counter;
+
+} SpriteTable;
+
+/*
+ * Initialize SpriteTable
+ */
+void init_SpriteTable(SpriteTable* table);
+
+/*
 * Load tiles into VRAM.
 * Each 16x16 image involves four 8x8 tiles in the correct order.
 * Other frames of animation should also be contiguous.
@@ -27,7 +40,7 @@
 UINT8 load_tiles_Sprite16x16(
   UINT8* tile_count,
   UINT8 num_animation_frames,
-  const unsigned char* source
+  unsigned char* source
 );
 
 /*
@@ -42,7 +55,7 @@ UINT8 load_tiles_Sprite16x16(
 * Returns: The sprite ID of the first sprite in the pair.
 */
 UINT8 create_Sprite16x16(
-  UINT8* sprite_count,
+  SpriteTable* sprite_table,
   UINT8 tile_location,
   UINT8 x, UINT8 y
 );
