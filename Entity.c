@@ -33,8 +33,10 @@ static BOOLEAN update_position(Entity* e);
 
 static void move_sprite(Entity* e);
 
-void init_Entity(Entity* entity, const Animation16x16Info* animation, UINT8 x, UINT8 y)
+void init_Entity(Entity* entity, const Animation16x16Info* animation, SpriteTable* sprite_table, UINT8 x, UINT8 y)
 {
+  UINT8 sprite_id = create_Sprite16x16(sprite_table, animation->tile_offset, x, y);
+
   entity->x = x;
   entity->y = y;
 
@@ -42,13 +44,7 @@ void init_Entity(Entity* entity, const Animation16x16Info* animation, UINT8 x, U
 
   entity->step_counter = 0;
 
-  init_Animation16x16(&entity->animation, 
-                      animation->sprite_number, 
-                      animation->tile_offset, 
-                      animation->frame_count, 
-                      animation->vblanks_per_frame);
-    
-  move_sprite(entity);
+  init_Animation16x16(&entity->animation, sprite_id, animation);
 }
 
 void teleport_Entity(Entity* e, UINT8 x, UINT8 y)
@@ -118,5 +114,5 @@ BOOLEAN update_position(Entity * e)
 
 void move_sprite(Entity* e)
 {
-  move_Sprite16x16(e->animation.info.sprite_number, e->x, e->y);
+  move_Sprite16x16(e->animation.sprite_number, e->x, e->y);
 }

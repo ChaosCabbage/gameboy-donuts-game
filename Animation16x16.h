@@ -16,7 +16,6 @@
  */
 typedef struct
 {
-  UINT8 sprite_number;
   UINT8 tile_offset;
   UINT8 frame_count;
   UINT8 vblanks_per_frame;
@@ -24,11 +23,13 @@ typedef struct
 } Animation16x16Info;
 
 /*
- * This is an animation in progress.
+ * This is an animation in progress, controlling one 16x16 sprite.
  */
 typedef struct
 {
   Animation16x16Info info;
+
+  UINT8 sprite_number;
 
   UINT8 frame;
   UINT8 vblanks;
@@ -49,7 +50,7 @@ typedef struct
  *  num_animation_frames: The total number of images in the animation.
  *  rate: Number of vblanks in a single animation frame. Smaller numbers are faster.
  */
-void init_Animation16x16(Animation16x16* anim, UINT8 sprite_id, UINT8 tile_id, UINT8 num_animation_frames, UINT8 rate);
+void init_Animation16x16(Animation16x16* anim, UINT8 sprite_id, const Animation16x16Info* info);
 
 /*
  * Animation16x16::step

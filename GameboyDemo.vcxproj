@@ -68,7 +68,9 @@
     </NMakeCleanCommandLine>
     <NMakeReBuildCommandLine>build.bat clean</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
-    <NMakeIncludeSearchPath>E:\Documents\GitHub\GameboyDemo\gbdk-n\include;$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
+    <NMakeIncludeSearchPath>E:\Documents\GitHub\GameboyDemo\gbdk-n\include;</NMakeIncludeSearchPath>
+    <IncludePath />
+    <ReferencePath />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <NMakeBuildCommandLine>make</NMakeBuildCommandLine>

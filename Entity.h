@@ -7,6 +7,7 @@
 #define ENTITY_H
 
 #include "Animation16x16.h"
+#include "Sprite16x16.h"
 
 typedef struct 
 {
@@ -36,10 +37,11 @@ typedef struct
 /*
  * Entity::init
  *
+ * Spawns a new sprite, and places it at the x,y location.
  * Animation data is COPIED, and does not need to live on.
  *
  */
-void init_Entity(Entity* e, const Animation16x16Info* animation, UINT8 x, UINT8 y);
+void init_Entity(Entity* e, const Animation16x16Info* animation, SpriteTable* sprite_table, UINT8 x, UINT8 y);
 
 void teleport_Entity(Entity* e, UINT8 x, UINT8 y);
 
