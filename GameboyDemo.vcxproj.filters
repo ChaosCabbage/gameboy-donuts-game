@@ -16,6 +16,9 @@
     <Filter Include="Resource Files\Sprites">
       <UniqueIdentifier>{2758857f-9e86-41e6-a93d-da851b5a1b07}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Background">
+      <UniqueIdentifier>{db47aa49-f97f-4dd4-b34f-58293781028b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="readme.txt" />
@@ -45,6 +48,9 @@
     <ClCompile Include="Maths.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="res\krispykreme_bkg.c">
+      <Filter>Resource Files\Background</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="build.bat">
@@ -73,6 +79,9 @@
     </ClInclude>
     <ClInclude Include="Maths.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="res\krispykreme_bkg.h">
+      <Filter>Resource Files\Background</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

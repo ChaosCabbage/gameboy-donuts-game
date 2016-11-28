@@ -6,6 +6,7 @@
 #include "res/james_sprite.h"
 #include "res/donut_sprite.h"
 #include "res/robot_sprite.h"
+#include "res/krispykreme_bkg.h"
 
 #include <gb/gb.h>
 #include <gb/rand.h>
@@ -111,6 +112,16 @@ void update()
   }
 }
 
+UINT8 g_scroll_counter;
+void scroll()
+{
+  ++g_scroll_counter;
+  if (g_scroll_counter == 5) {
+    scroll_bkg(0, 1);
+    g_scroll_counter = 0;
+  }
+}
+
 /*
  * Update, forever.
  * Wait for a vertical blank each time, so we get 60 FPS at most.
@@ -127,6 +138,7 @@ void loop()
     }
 
     update();
+    scroll();
     wait_vbl_done();
 
     if (death_frame_countdown == 0) {
@@ -138,13 +150,36 @@ void loop()
 }
 
 
+UINT8 KrispyTiles[] = {
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 3, 5, 7, 9,11, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 4, 6, 8,10,12, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 1, 3, 5, 7, 9,11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 2, 4, 6, 8,10,12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+};
+
+
 void main()
 {
+
   UINT8 JAMES_TILE_OFFSET;
   UINT8 DONUT_TILE_OFFSET;
   UINT8 ROBOT_TILE_OFFSET;
 
   UINT8 tile_count = 0;
+
+
+  /* load background */
+  set_bkg_data(1, KrispyKremeBkgLen, KrispyKremeBkg);
+  set_bkg_tiles(0,  0, 20, 10, KrispyTiles);
+  set_bkg_tiles(0, 10, 20, 10, KrispyTiles);
+  set_bkg_tiles(0, 20, 20, 10, KrispyTiles);
+  SHOW_BKG;
 
   g_dead = FALSE;
 
@@ -191,7 +226,7 @@ void main()
   g_robot[2].animation.info.vblanks_per_frame = 2;
 
   set_speed_Entity(&g_robot[3], -4, 0);
-  g_robot[2].animation.info.vblanks_per_frame = 4;
+  g_robot[3].animation.info.vblanks_per_frame = 4;
 
   SHOW_SPRITES;
 

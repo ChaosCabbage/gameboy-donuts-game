@@ -95,6 +95,7 @@
     <ClCompile Include="Maths.c" />
     <ClCompile Include="res\donut_sprite.c" />
     <ClCompile Include="res\james_sprite.c" />
+    <ClCompile Include="res\krispykreme_bkg.c" />
     <ClCompile Include="res\robot_sprite.c" />
     <ClCompile Include="Sprite16x16.c" />
   </ItemGroup>
@@ -108,6 +109,7 @@
     <ClInclude Include="Maths.h" />
     <ClInclude Include="res\donut_sprite.h" />
     <ClInclude Include="res\james_sprite.h" />
+    <ClInclude Include="res\krispykreme_bkg.h" />
     <ClInclude Include="res\robot_sprite.h" />
     <ClInclude Include="Sprite16x16.h" />
   </ItemGroup>
