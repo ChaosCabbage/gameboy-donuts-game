@@ -13,6 +13,7 @@ if not exist %OBJ% mkdir %OBJ%
 call %TOOLS%\gbdk-n-compile.bat res\donut_sprite.c -o %OBJ%\donut_sprite.rel
 call %TOOLS%\gbdk-n-compile.bat res\james_sprite.c -o %OBJ%\james_sprite.rel
 call %TOOLS%\gbdk-n-compile.bat res\robot_sprite.c -o %OBJ%\robot_sprite.rel
+call %TOOLS%\gbdk-n-compile.bat res\krispykreme_bkg.c -o %OBJ%\krispykreme_bkg.rel
 call %TOOLS%\gbdk-n-compile.bat Animation16x16.c -o %OBJ%\Animation16x16.rel
 call %TOOLS%\gbdk-n-compile.bat Sprite16x16.c -o %OBJ%\Sprite16x16.rel
 call %TOOLS%\gbdk-n-compile.bat Entity.c -o %OBJ%\Entity.rel
@@ -22,6 +23,7 @@ call %TOOLS%\gbdk-n-compile.bat main.c -o %OBJ%\main.rel
 call %TOOLS%\gbdk-n-link.bat %OBJ%\donut_sprite.rel ^
                              %OBJ%\james_sprite.rel ^
                              %OBJ%\robot_sprite.rel ^
+                             %OBJ%\krispykreme_bkg.rel ^
                              %OBJ%\Animation16x16.rel ^
                              %OBJ%\Sprite16x16.rel ^
                              %OBJ%\Entity.rel ^
