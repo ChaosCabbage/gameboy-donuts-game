@@ -44,12 +44,8 @@ void set_speed_Entity(Entity* e, int inverse_x, int inverse_y)
 {
   e->inverse_dx = inverse_x;
   e->inverse_dy = inverse_y;
-  e->step_lcm = lcm(ABS(inverse_x), ABS(inverse_y));
-
-  if (e->step_lcm == 0) {
-    /* No point doing all the movement stuff on every frame */
-    e->step_lcm = 255;
-  }
+  e->animation.vblanks = 0;
+  e->step_counter = 0;
 }
 
 void step_Entity(Entity* e)
@@ -70,10 +66,10 @@ void incr_step(Entity* e)
 {
   ++e->step_counter;
 
-  /* To ensure that the movement doesn't skip a frame,
-   * the step counter is reset on the greatest common divisior of movement frames.
+  /* 210 is a common multiple of 2, 3, 4, 5, 6 and 7
+   * so for any of those speeds, this will make the movement stay synced with the animation.
    */
-  if (e->step_counter == e->step_lcm) {
+  if (e->step_counter == 210) {
     e->step_counter = 0;
   }
 }

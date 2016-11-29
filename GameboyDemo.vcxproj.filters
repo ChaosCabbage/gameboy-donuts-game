@@ -24,9 +24,6 @@
     <Text Include="readme.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="res\james_sprite.c">
       <Filter>Resource Files\Sprites</Filter>
     </ClCompile>
@@ -49,6 +46,27 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="res\krispykreme_bkg.c">
+      <Filter>Resource Files\Background</Filter>
+    </ClCompile>
+    <ClCompile Include="res\krispy_bkg_large.C">
+      <Filter>Resource Files\Background</Filter>
+    </ClCompile>
+    <ClCompile Include="res\krispy_bkg_large_map.C">
+      <Filter>Resource Files\Background</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScene.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="res\attack_text.C">
+      <Filter>Resource Files\Background</Filter>
+    </ClCompile>
+    <ClCompile Include="res\attack_text_map.C">
       <Filter>Resource Files\Background</Filter>
     </ClCompile>
   </ItemGroup>
@@ -81,6 +99,24 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="res\krispykreme_bkg.h">
+      <Filter>Resource Files\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="res\krispy_bkg_large.h">
+      <Filter>Resource Files\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="res\krispy_bkg_large_map.h">
+      <Filter>Resource Files\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="res\attack_text.h">
+      <Filter>Resource Files\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="res\attack_text_map.h">
       <Filter>Resource Files\Background</Filter>
     </ClInclude>
   </ItemGroup>

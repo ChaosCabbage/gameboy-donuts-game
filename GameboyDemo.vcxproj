@@ -91,13 +91,19 @@
   <ItemGroup>
     <ClCompile Include="Animation16x16.c" />
     <ClCompile Include="Entity.c" />
+    <ClCompile Include="GameScene.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="Maths.c" />
+    <ClCompile Include="res\attack_text.C" />
+    <ClCompile Include="res\attack_text_map.C" />
     <ClCompile Include="res\donut_sprite.c" />
     <ClCompile Include="res\james_sprite.c" />
     <ClCompile Include="res\krispykreme_bkg.c" />
+    <ClCompile Include="res\krispy_bkg_large.C" />
+    <ClCompile Include="res\krispy_bkg_large_map.C" />
     <ClCompile Include="res\robot_sprite.c" />
     <ClCompile Include="Sprite16x16.c" />
+    <ClCompile Include="TitleScene.c" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
@@ -106,12 +112,18 @@
   <ItemGroup>
     <ClInclude Include="Animation16x16.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="GameScene.h" />
     <ClInclude Include="Maths.h" />
+    <ClInclude Include="res\attack_text.h" />
+    <ClInclude Include="res\attack_text_map.h" />
     <ClInclude Include="res\donut_sprite.h" />
     <ClInclude Include="res\james_sprite.h" />
     <ClInclude Include="res\krispykreme_bkg.h" />
+    <ClInclude Include="res\krispy_bkg_large.h" />
+    <ClInclude Include="res\krispy_bkg_large_map.h" />
     <ClInclude Include="res\robot_sprite.h" />
     <ClInclude Include="Sprite16x16.h" />
+    <ClInclude Include="TitleScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

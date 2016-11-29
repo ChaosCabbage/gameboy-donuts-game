@@ -30,7 +30,6 @@ typedef struct
 
   /* Internal information about the steps taken so far */
   UINT8 step_counter;
-  UINT8 step_lcm;
 
 } Entity;
 
