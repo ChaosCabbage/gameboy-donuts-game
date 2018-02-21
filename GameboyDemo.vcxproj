@@ -101,6 +101,7 @@
     <ClCompile Include="res\krispykreme_bkg.c" />
     <ClCompile Include="res\krispy_bkg_large.C" />
     <ClCompile Include="res\krispy_bkg_large_map.C" />
+    <ClCompile Include="res\numbers.c" />
     <ClCompile Include="res\robot_sprite.c" />
     <ClCompile Include="Sprite16x16.c" />
     <ClCompile Include="TitleScene.c" />
@@ -121,6 +122,7 @@
     <ClInclude Include="res\krispykreme_bkg.h" />
     <ClInclude Include="res\krispy_bkg_large.h" />
     <ClInclude Include="res\krispy_bkg_large_map.h" />
+    <ClInclude Include="res\numbers.h" />
     <ClInclude Include="res\robot_sprite.h" />
     <ClInclude Include="Sprite16x16.h" />
     <ClInclude Include="TitleScene.h" />

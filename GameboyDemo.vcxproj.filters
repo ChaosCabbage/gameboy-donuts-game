@@ -69,6 +69,9 @@
     <ClCompile Include="res\attack_text_map.C">
       <Filter>Resource Files\Background</Filter>
     </ClCompile>
+    <ClCompile Include="res\numbers.c">
+      <Filter>Resource Files\Background</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="build.bat">
@@ -117,6 +120,9 @@
       <Filter>Resource Files\Background</Filter>
     </ClInclude>
     <ClInclude Include="res\attack_text_map.h">
+      <Filter>Resource Files\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="res\numbers.h">
       <Filter>Resource Files\Background</Filter>
     </ClInclude>
   </ItemGroup>

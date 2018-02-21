@@ -6,7 +6,7 @@
 #include "res/james_sprite.h"
 #include "res/donut_sprite.h"
 #include "res/robot_sprite.h"
-#include "res/krispykreme_bkg.h"
+#include "res/numbers.h"
 
 #include <gb/gb.h>
 #include <gb/rand.h>
@@ -14,12 +14,15 @@
 
 /* global game state */
 Entity g_donut;
-Entity g_james;
 Entity g_robot[4];
 
-BOOLEAN g_dead;
+struct {
+  Entity ent;
+  BOOLEAN dead;
+} g_james;
 
-UINT8 g_score;
+
+UINT16 g_score;
 
 /* global animation data */
 SpriteTable SPRITE_TABLE;
@@ -29,6 +32,29 @@ Animation16x16Info DONUT_ANIM;
 Animation16x16Info ROBOT_ANIM;
 
 /* ----- */
+
+void show_score()
+{
+  /* 
+   * The score is exactly 5 background tiles drawn near the top of the screen.
+   * The numbers 0-9 are loaded into background tiles, starting at index 1.
+   */
+  UINT8 ten_thousands = g_score / 10000;
+  UINT8 thousands = (g_score / 1000) % 10;
+  UINT8 hundreds = (g_score / 100) % 10;
+  UINT8 tens = (g_score / 10) % 10;
+  UINT8 units = g_score % 10;
+  
+  unsigned char score_map[] = {
+    ten_thousands + 1,
+    thousands + 1,
+    hundreds + 1,
+    tens + 1,
+    units + 1
+  };
+
+  set_bkg_tiles(14, 0, 5, 1, score_map);
+}
 
 BOOLEAN are_colliding(Entity* e1, Entity* e2)
 {
@@ -79,9 +105,16 @@ void go_to_random_right_of_screen(Entity* e)
   }
 }
 
-void eat_the_donut()
+void teleport_the_donut()
 {
   go_to_random_right_of_screen(&g_donut);
+}
+
+void eat_the_donut()
+{
+  teleport_the_donut();
+  ++g_score;
+  show_score();
 }
 
 void set_robot_speed(Entity* robot, UINT8 inverse_x)
@@ -110,7 +143,19 @@ void set_random_robot_speed(Entity* robot)
   }
 }
 
+void kill_james()
+{
+  g_james.dead = TRUE;
+  set_sprite_prop(g_james.ent.animation.sprite_number,     S_FLIPY);
+  set_sprite_prop(g_james.ent.animation.sprite_number + 1, S_FLIPY);
+}
 
+void reset_james()
+{
+  g_james.dead = FALSE;  
+  set_sprite_prop(g_james.ent.animation.sprite_number,     0);
+  set_sprite_prop(g_james.ent.animation.sprite_number + 1, 0);
+}
 
 /*
  * Do a single step!
@@ -128,7 +173,7 @@ void update()
   UINT8 i;
 
   step_Entity(&g_donut);
-  step_Entity(&g_james);
+  step_Entity(&g_james.ent);
 
   for (i = 0; i != 4; ++i) {
     step_Entity(&g_robot[i]);
@@ -137,19 +182,17 @@ void update()
       set_random_robot_speed(&g_robot[i]);
     }
 
-    if (are_colliding(&g_james, &g_robot[i])) {
-      g_dead = TRUE;
-      set_sprite_prop(g_james.animation.sprite_number, S_FLIPY);
-      set_sprite_prop(g_james.animation.sprite_number+1, S_FLIPY);
+    if (are_colliding(&g_james.ent, &g_robot[i])) {
+      kill_james();
     }
 
   }
 
-  if (are_colliding(&g_donut, &g_james)) {
+  if (are_colliding(&g_donut, &g_james.ent)) {
     eat_the_donut();
   }
   if (g_donut.x == offscreen) {
-    eat_the_donut();
+    teleport_the_donut();
   }
 }
 
@@ -163,8 +206,8 @@ void loop()
   UINT8 death_frame_countdown = 255;
 
   while (1) {
-    if (!g_dead) {
-      simple_joypad_movement(&g_james);
+    if (!g_james.dead) {
+      simple_joypad_movement(&g_james.ent);
     } else {
       --death_frame_countdown;
     }
@@ -178,6 +221,13 @@ void loop()
   }
 }
 
+void clear_nintendo_bkg_map()
+{
+  UINT8* i;
+  for (i = (UINT8*)0x9904; i < (UINT8*)0x9930; ++i) {
+    *i = 0;
+  }
+}
 
 /*
  * This is the init routine.
@@ -192,12 +242,18 @@ void game_scene()
 
   g_score = 0;
 
-  SPRITES_8x16;
+  display_off();
+  disable_interrupts();
 
-  g_dead = FALSE;
+  SPRITES_8x16;
 
   g_donut.x = 150;
   g_donut.y = 80;
+
+  /* Load the score tiles */
+  set_bkg_data(1, 10, Numbers);
+  clear_nintendo_bkg_map();
+  show_score();
 
   /* Load the tiles */
   JAMES_TILE_OFFSET = load_tiles_Sprite16x16(&tile_count, 2, jamesSprite);
@@ -220,7 +276,7 @@ void game_scene()
 
   /* Engage Donuts! */
   init_SpriteTable(&SPRITE_TABLE);
-  init_Entity(&g_james, &JAMES_ANIM, &SPRITE_TABLE, 75, 75);
+  init_Entity(&g_james.ent, &JAMES_ANIM, &SPRITE_TABLE, 75, 75);
   init_Entity(&g_donut, &DONUT_ANIM, &SPRITE_TABLE, g_donut.x, g_donut.y);
   init_Entity(&g_robot[0], &ROBOT_ANIM, &SPRITE_TABLE, MAXWNDPOSX, 20);
   init_Entity(&g_robot[1], &ROBOT_ANIM, &SPRITE_TABLE, MAXWNDPOSX, 40);
@@ -235,8 +291,14 @@ void game_scene()
   set_robot_speed(&g_robot[3], 4);
 
   SHOW_SPRITES;
+  SHOW_BKG;
 
   initrand(DIV_REG);
+
+  reset_james();
+
+  DISPLAY_ON;
+  enable_interrupts();
 
   loop();
 }

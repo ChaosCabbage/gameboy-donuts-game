@@ -40,8 +40,8 @@ void title_scene()
 
   shift_tile_map(AttackTextMapData, 80, 115);
 
-  set_win_data(115, 54, AttackTextTileData);
-  set_win_tiles(0, 0, 20, 4, AttackTextMapData);
+  set_bkg_data(115, 54, AttackTextTileData);
+  set_bkg_tiles(0, 0, 20, 4, AttackTextMapData);
 
   SHOW_BKG;
 
