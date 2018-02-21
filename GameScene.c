@@ -221,12 +221,18 @@ void loop()
   }
 }
 
-void clear_nintendo_bkg_map()
+inline void clear_nintendo_bkg_map()
 {
   UINT8* i;
   for (i = (UINT8*)0x9904; i < (UINT8*)0x9930; ++i) {
     *i = 0;
   }
+}
+
+inline void sound_off()
+{
+  UINT8* const sound_control = (UINT8*)0xFF26;
+  *sound_control = 0;
 }
 
 /*
@@ -242,6 +248,7 @@ void game_scene()
 
   g_score = 0;
 
+  sound_off();
   display_off();
   disable_interrupts();
 
