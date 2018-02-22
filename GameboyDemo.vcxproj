@@ -91,7 +91,9 @@
   <ItemGroup>
     <ClCompile Include="Animation16x16.c" />
     <ClCompile Include="Entity.c" />
+    <ClCompile Include="ExternalRam.c" />
     <ClCompile Include="GameScene.c" />
+    <ClCompile Include="HighScore.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="Maths.c" />
     <ClCompile Include="res\attack_text.C" />
@@ -112,8 +114,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation16x16.h" />
+    <ClInclude Include="BitTwiddling.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="ExternalRam.h" />
     <ClInclude Include="GameScene.h" />
+    <ClInclude Include="HighScore.h" />
     <ClInclude Include="Maths.h" />
     <ClInclude Include="res\attack_text.h" />
     <ClInclude Include="res\attack_text_map.h" />

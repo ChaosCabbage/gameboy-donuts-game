@@ -1,3 +1,5 @@
+#include "BitTwiddling.h"
+#include "HighScore.h"
 #include "Entity.h"
 #include "Animation16x16.h"
 #include "Sprite16x16.h"
@@ -33,18 +35,18 @@ Animation16x16Info ROBOT_ANIM;
 
 /* ----- */
 
-void show_score()
+void set_score_bg_map(UINT8 x, UINT8 y, UINT16 score)
 {
-  /* 
-   * The score is exactly 5 background tiles drawn near the top of the screen.
-   * The numbers 0-9 are loaded into background tiles, starting at index 1.
-   */
-  UINT8 ten_thousands = g_score / 10000;
-  UINT8 thousands = (g_score / 1000) % 10;
-  UINT8 hundreds = (g_score / 100) % 10;
-  UINT8 tens = (g_score / 10) % 10;
-  UINT8 units = g_score % 10;
-  
+  /*
+   * The score is exactly 5 background tiles.
+   * The numbers 0-9 are already loaded into background tiles, starting at index 1.
+  */
+  UINT8 ten_thousands = score / 10000;
+  UINT8 thousands = (score / 1000) % 10;
+  UINT8 hundreds = (score / 100) % 10;
+  UINT8 tens = (score / 10) % 10;
+  UINT8 units = score % 10;
+
   unsigned char score_map[] = {
     ten_thousands + 1,
     thousands + 1,
@@ -53,7 +55,12 @@ void show_score()
     units + 1
   };
 
-  set_bkg_tiles(14, 0, 5, 1, score_map);
+  set_bkg_tiles(x, y, 5, 1, score_map);
+}
+
+void show_score()
+{
+  set_score_bg_map(14, 0, g_score);
 }
 
 BOOLEAN are_colliding(Entity* e1, Entity* e2)
@@ -221,22 +228,23 @@ void loop()
   }
 }
 
-inline void clear_nintendo_bkg_map()
+void display_high_score(UINT16 high_score)
 {
-  UINT8* i;
-  for (i = (UINT8*)0x9904; i < (UINT8*)0x9930; ++i) {
-    *i = 0;
+  UINT8 count = 100;
+  set_score_bg_map(6, 6, high_score);
+  SHOW_BKG;
+  DISPLAY_ON;
+  enable_interrupts();
+  while (--count) {
+    wait_vbl_done();
   }
-}
-
-inline void sound_off()
-{
-  UINT8* const sound_control = (UINT8*)0xFF26;
-  *sound_control = 0;
+  display_off();
+  disable_interrupts();
+  wipe_memory((UINT8*)0x98C6, (UINT8*)0x98CB, 0);  
 }
 
 /*
- * This is the init routine.
+ * Set up and play the game.
  */
 void game_scene()
 {
@@ -246,12 +254,10 @@ void game_scene()
 
   UINT8 tile_count = 0;
 
-  g_score = 0;
+  UINT16 high_score = load_high_score();
 
-  sound_off();
-  display_off();
-  disable_interrupts();
-
+  HIDE_SPRITES;
+  HIDE_BKG;
   SPRITES_8x16;
 
   g_donut.x = 150;
@@ -259,8 +265,6 @@ void game_scene()
 
   /* Load the score tiles */
   set_bkg_data(1, 10, Numbers);
-  clear_nintendo_bkg_map();
-  show_score();
 
   /* Load the tiles */
   JAMES_TILE_OFFSET = load_tiles_Sprite16x16(&tile_count, 2, jamesSprite);
@@ -297,15 +301,23 @@ void game_scene()
   set_robot_speed(&g_robot[2], 2);
   set_robot_speed(&g_robot[3], 4);
 
+  display_high_score(high_score);
+
   SHOW_SPRITES;
   SHOW_BKG;
 
   initrand(DIV_REG);
 
   reset_james();
+  g_score = 0;
+  show_score();
 
   DISPLAY_ON;
   enable_interrupts();
 
   loop();
+
+  if (g_score > high_score) {
+    write_high_score(g_score);
+  }
 }

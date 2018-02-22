@@ -1,6 +1,7 @@
 .vs
 *.o
 *.gb
+*.sav
 *.VC.opendb
 *.VC.db
 *.sdf

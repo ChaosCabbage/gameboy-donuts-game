@@ -72,6 +72,12 @@
     <ClCompile Include="res\numbers.c">
       <Filter>Resource Files\Background</Filter>
     </ClCompile>
+    <ClCompile Include="ExternalRam.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HighScore.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="build.bat">
@@ -124,6 +130,15 @@
     </ClInclude>
     <ClInclude Include="res\numbers.h">
       <Filter>Resource Files\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="BitTwiddling.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ExternalRam.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HighScore.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
